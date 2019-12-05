@@ -1,3 +1,6 @@
+// Note on vector sorting...
+// https://rust-lang-nursery.github.io/rust-cookbook/algorithms/sorting.html
+
 use r2d2_redis::{r2d2, RedisConnectionManager};
 use redis::{Commands, RedisResult};
 
