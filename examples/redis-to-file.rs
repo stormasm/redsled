@@ -11,9 +11,12 @@ fn get_hashmap_keys(key: String) -> RedisResult<Vec<u32>> {
 }
 
 fn main() {
-    let keys = get_hashmap_keys("hn-story-19".to_string()).unwrap();
+    let mut keys = get_hashmap_keys("hn-story-19".to_string()).unwrap();
+    keys.sort();
 
     for key in &keys {
         println!("{}", key);
     }
+
+    println!("Number of keys = {}", keys.len());
 }
