@@ -13,3 +13,7 @@ For now data lands in Redis via
 and then redsled will take over and do more processing.
 
 Much of the tantivy processing will happen in tansled.
+
+##### References:
+
+[Sort a vector of Integers](https://rust-lang-nursery.github.io/rust-cookbook/algorithms/sorting.html)
