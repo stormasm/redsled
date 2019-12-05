@@ -1,0 +1,21 @@
+[package]
+name = "redsled"
+description = "A simple Hacker News API (v0) client library based on reqwest and serde. "
+version = "0.1.0"
+authors = ["Danilo Bargen <mail@dbrgn.ch>"]
+edition = "2018"
+license = "MIT/Apache-2.0"
+readme = "README.md"
+repository = "https://github.com/dbrgn/hn_api/"
+include = ["/src/**/*", "/tests/**/*", "/Cargo.toml", "/README.md", "/CHANGELOG.md", "/LICENSE-*"]
+keywords = ["hackernews", "hn", "api", "client", "ycombinator"]
+categories = ["api-bindings"]
+
+[dependencies]
+reqwest = "0.9"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+r2d2 = "0.8"
+r2d2_redis = "0.12.0"
+redis = "0.13"
+hn_api = { git = "https://github.com/stormasm/hn-api-examples" }
