@@ -6,6 +6,20 @@
 use r2d2_redis::{r2d2, RedisConnectionManager};
 use redis::{Commands, RedisResult};
 
+use std::fs::{self, File};
+use std::io::prelude::*;
+use std::io::LineWriter;
+
+fn write_line_to_file() -> std::io::Result<()> {
+
+    let file = File::create("poem.txt")?;
+    let mut file = LineWriter::new(file);
+
+    file.write_all(b"rick")?;
+    file.write_all(b"\n")?;
+    Ok(())
+}
+
 fn get_hashmap_keys(key: String) -> RedisResult<Vec<u32>> {
     let manager = RedisConnectionManager::new("redis://localhost").unwrap();
     let pool = r2d2::Pool::builder().build(manager).unwrap();
@@ -25,11 +39,15 @@ fn main() {
     let pool = pool.clone();
     let mut con = pool.get().unwrap();
 
+
+
     for key in &keys {
         let value: RedisResult<String> = con.hget("hn-story-19".to_string(), key.to_string());
         let json = value.unwrap();
         println!("{}", key);
         println!("{}", json);
+
+        write_line_to_file();
     }
 
     println!("Number of keys = {}", keys.len());
