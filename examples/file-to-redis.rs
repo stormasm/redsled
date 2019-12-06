@@ -10,6 +10,8 @@ use std::io::BufRead;
 use std::io::BufWriter;
 use std::io::Write;
 
+use std::convert::TryInto;
+
 /// use num::Integer::is_even;
 // use num::num_integer::*;
 use r2d2_redis::{r2d2, RedisConnectionManager};
@@ -34,22 +36,22 @@ fn write_json_to_redis(key: String, value: String) -> RedisResult<()> {
     Ok(())
 }
 
+fn is_even(num: u32) -> bool {
+    (num) & 1 == 0
+}
+
 fn read_file_to_buffer2(filename: String) {
     let f = File::open(filename).unwrap();
     let file = BufReader::new(&f);
 
     let mut writer = BufWriter::new(io::stdout());
     for (num, line) in file.lines().enumerate() {
-        // num.is_even();
-        // 4.is_even();
-
-        /*
-                if num::Integer.is_even(num) {
-                    writeln!(writer, "{0}\n", num).unwrap();
-                }
-        */
-        let l = line.unwrap();
-        writeln!(writer, "{0} {1}\n", num, l).unwrap();
+        if is_even(num.try_into().unwrap()) {
+            // if is_even(num) {
+            writeln!(writer, "{0}\n", num).unwrap();
+        }
+        //let l = line.unwrap();
+        //writeln!(writer, "{0} {1}\n", num, l).unwrap();
     }
 }
 
