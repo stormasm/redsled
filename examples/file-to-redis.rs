@@ -10,6 +10,8 @@ use std::io::BufRead;
 use std::io::BufWriter;
 use std::io::Write;
 
+/// use num::Integer::is_even;
+// use num::num_integer::*;
 use r2d2_redis::{r2d2, RedisConnectionManager};
 // use redis::Commands;
 use redis::{Commands, RedisResult};
@@ -36,11 +38,16 @@ fn read_file_to_buffer2(filename: String) {
     let f = File::open(filename).unwrap();
     let file = BufReader::new(&f);
 
-    //    let f = File::open(filename);
-    //    let file = BufReader::new(f);
-
     let mut writer = BufWriter::new(io::stdout());
     for (num, line) in file.lines().enumerate() {
+        // num.is_even();
+        // 4.is_even();
+
+        /*
+                if num::Integer.is_even(num) {
+                    writeln!(writer, "{0}\n", num).unwrap();
+                }
+        */
         let l = line.unwrap();
         writeln!(writer, "{0} {1}\n", num, l).unwrap();
     }
