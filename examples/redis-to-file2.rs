@@ -5,7 +5,6 @@ use r2d2_redis::{r2d2, RedisConnectionManager};
 use redis::{Commands, RedisResult};
 
 use std::fs::File;
-// use std::io::prelude::*;
 use std::io::{Error, Write};
 
 fn get_hashmap_keys(key: String) -> RedisResult<Vec<u32>> {
