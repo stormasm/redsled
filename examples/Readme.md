@@ -1,6 +1,9 @@
 
 Eventually the plan is to do sled as well...
 
+Don't mess with the Redis data for now...
+Focus on sled and tantivy...
+
 ##### redis-to-file.rs
 
 Pulls all of the ids from a Redis Hashmap
