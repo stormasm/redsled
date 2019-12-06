@@ -1,24 +1,11 @@
 // Note on vector sorting...
 // https://rust-lang-nursery.github.io/rust-cookbook/algorithms/sorting.html
 
-// https://doc.rust-lang.org/std/io/struct.LineWriter.html
-
 use r2d2_redis::{r2d2, RedisConnectionManager};
 use redis::{Commands, RedisResult};
 
-use std::fs::{self, File};
-use std::io::prelude::*;
-use std::io::LineWriter;
-
-fn write_line_to_file() -> std::io::Result<()> {
-
-    let file = File::create("poem.txt")?;
-    let mut file = LineWriter::new(file);
-
-    file.write_all(b"rick")?;
-    file.write_all(b"\n")?;
-    Ok(())
-}
+use std::fs::File;
+use std::io::{Error, Write};
 
 fn get_hashmap_keys(key: String) -> RedisResult<Vec<u32>> {
     let manager = RedisConnectionManager::new("redis://localhost").unwrap();
@@ -29,7 +16,7 @@ fn get_hashmap_keys(key: String) -> RedisResult<Vec<u32>> {
     con.hkeys(key)
 }
 
-fn main() {
+fn main() -> Result<(), Error> {
     let mut keys = get_hashmap_keys("hn-story-19".to_string()).unwrap();
     keys.sort();
 
@@ -39,16 +26,20 @@ fn main() {
     let pool = pool.clone();
     let mut con = pool.get().unwrap();
 
-
+    let path = "lines.txt";
+    let mut output = File::create(path)?;
 
     for key in &keys {
         let value: RedisResult<String> = con.hget("hn-story-19".to_string(), key.to_string());
         let json = value.unwrap();
-        println!("{}", key);
-        println!("{}", json);
 
-        write_line_to_file();
+        // println!("{}", key);
+        // println!("{}", json);
+
+        write!(output, "{}", json.to_string())?;
+        write!(output, "{}", "\n")?;
     }
-
+    output.sync_all()?;
     println!("Number of keys = {}", keys.len());
+    Ok(())
 }
