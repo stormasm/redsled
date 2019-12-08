@@ -46,11 +46,10 @@ fn read_file_to_buffer2(filename: String) {
     let mut vec_value = Vec::new();
     let mut myline = String::new();
 
-
     let mut writer = BufWriter::new(io::stdout());
     for (num, line) in file.lines().enumerate() {
         myline = line.unwrap().clone();
-        println!("{}",myline);
+        println!("{}", myline);
         if is_even(num.try_into().unwrap()) {
             // writeln!(writer, "{0}\n", num).unwrap();
             vec_key.push(&myline);
@@ -59,7 +58,6 @@ fn read_file_to_buffer2(filename: String) {
             vec_value.push(&myline);
         }
     }
-
 }
 
 fn main() {
