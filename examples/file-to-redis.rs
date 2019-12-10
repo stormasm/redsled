@@ -1,3 +1,5 @@
+// https://doc.rust-lang.org/rust-by-example/scope/lifetime/methods.html
+
 use std::env;
 use std::process;
 use std::string::String;
@@ -5,53 +7,38 @@ use std::string::String;
 use std::fs::File;
 use std::io::BufReader;
 
-use std::io;
-use std::io::BufRead;
-use std::io::BufWriter;
-use std::io::Write;
-
 use std::convert::TryInto;
+use std::io::BufRead;
 
-/// use num::Integer::is_even;
-// use num::num_integer::*;
-use r2d2_redis::{r2d2, RedisConnectionManager};
-// use redis::Commands;
-use redis::{Commands, RedisResult};
-
-#[allow(dead_code)]
-fn write_json_to_redis(key: String, value: String) -> RedisResult<()> {
-    let manager = RedisConnectionManager::new("redis://localhost").unwrap();
-    let pool = r2d2::Pool::builder().build(manager).unwrap();
-
-    let pool = pool.clone();
-    let mut con = pool.get().unwrap();
-
-    let _x0 = redis::cmd("HSET")
-        .arg("hn-story-19-bak")
-        .arg(key)
-        .arg(value)
-        .query::<u64>(&mut *con)
-        .unwrap();
-
-    Ok(())
+#[derive(Debug)]
+struct FileToVec<'a> {
+    key: &'a mut Vec<u32>,
+    value: &'a mut Vec<String>,
 }
 
-fn is_even(num: u32) -> bool {
-    (num) & 1 == 0
-}
+impl<'a> FileToVec<'a> {
+    fn is_even(num: u32) -> bool {
+        (num) & 1 == 0
+    }
 
-fn read_file_to_buffer2(filename: String) {
-    let f = File::open(filename).unwrap();
-    let file = BufReader::new(&f);
+    fn readfile(&mut self, filename: String) {
+        let f = File::open(filename).unwrap();
+        let file = BufReader::new(&f);
 
-    let mut writer = BufWriter::new(io::stdout());
-    for (num, line) in file.lines().enumerate() {
-        if is_even(num.try_into().unwrap()) {
-            // if is_even(num) {
-            writeln!(writer, "{0}\n", num).unwrap();
+        for (num, line) in file.lines().enumerate() {
+            let xval = line.unwrap().clone();
+            if FileToVec::is_even(num.try_into().unwrap()) {
+                let xkey = xval.parse::<u32>().unwrap();
+                self.key.push(xkey);
+            }
+            if !FileToVec::is_even(num.try_into().unwrap()) {
+                self.value.push(xval);
+            }
         }
-        //let l = line.unwrap();
-        //writeln!(writer, "{0} {1}\n", num, l).unwrap();
+
+        for i in 0..self.key.len() {
+            println!("{} {}", self.key[i], self.value[i]);
+        }
     }
 }
 
@@ -64,7 +51,11 @@ fn main() {
     let filename = &args[1];
     println!("In file {}", filename);
 
-    let _contents = read_file_to_buffer2(filename.to_string());
+    // Instantiate a FileToVec
+    let mut ftv: FileToVec = FileToVec {
+        key: &mut Vec::new(),
+        value: &mut Vec::new(),
+    };
 
-    // let _ = write_json_to_redis(item_id.to_string(), item_json);
+    let _contents = FileToVec::readfile(&mut ftv, filename.to_string());
 }
