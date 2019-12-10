@@ -11,7 +11,7 @@ use std::convert::TryInto;
 use std::io::BufRead;
 
 use r2d2_redis::{r2d2, RedisConnectionManager};
-use redis::{Commands, RedisResult};
+use redis::RedisResult;
 
 #[derive(Debug)]
 struct FileToVec<'a> {
@@ -58,7 +58,8 @@ impl<'a> FileToVec<'a> {
 
         for i in 0..self.key.len() {
             println!("{} {}", self.key[i], self.value[i]);
-            FileToVec::write_json_to_redis(self.key[i].to_string(), self.value[i]);
+            // yval = self.value[i].clone();
+            let _x = FileToVec::write_json_to_redis(self.key[i].to_string(), self.value[i].clone());
         }
     }
 }
