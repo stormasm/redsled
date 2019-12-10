@@ -4,6 +4,11 @@ Eventually the plan is to do sled as well...
 Don't mess with the Redis data for now...
 Focus on sled and tantivy...
 
+##### file-to-redis.rs
+
+This started out
+[here](https://github.com/stormasm/rust-examples/blob/master/lifetimes/examples/readfile.rs) and then I added in the part about saving it to redis.
+
 ##### redis-to-file.rs
 
 Pulls all of the ids from a Redis Hashmap
