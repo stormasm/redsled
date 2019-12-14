@@ -19,3 +19,4 @@ r2d2 = "0.8"
 r2d2_redis = "0.12.0"
 redis = "0.13"
 hn_api = { git = "https://github.com/stormasm/hn-api-examples" }
+sled = "0.30.0"
