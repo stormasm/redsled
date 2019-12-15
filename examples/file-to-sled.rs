@@ -7,7 +7,7 @@ use std::string::String;
 use std::fs::File;
 use std::io::BufReader;
 
-use sled::{Db, IVec};
+use sled::Db;
 use std::convert::TryInto;
 use std::io::{BufRead, Error};
 
@@ -22,19 +22,9 @@ impl<'a> FileToVec<'a> {
         (num) & 1 == 0
     }
 
-    fn write_json_to_sled(key: String, value: String) -> Result<(), Error> {
+    fn write_json_to_sled(key: String, data: String) -> Result<(), Error> {
         let tree = Db::open("my_db").unwrap();
-
-        let expected = r#"{"One":1,"Two":2}"#;
-        tree.insert(key, expected).unwrap();
-        /*
-                tree.insert(b"rick", vec![1, 2, 3]).unwrap();
-                assert_eq!(tree.get(b"rick"), Ok(Some(IVec::from(vec![1, 2, 3]))));
-
-
-                tree.insert(b"storm", expected).unwrap();
-                assert_eq!(tree.get(b"storm"), Ok(Some(IVec::from(expected))));
-        */
+        let _x = tree.insert(key, data.as_str().as_bytes());
         tree.flush().unwrap();
         Ok(())
     }
@@ -55,7 +45,7 @@ impl<'a> FileToVec<'a> {
         }
 
         for i in 0..self.key.len() {
-            println!("{} {}", self.key[i], self.value[i]);
+            // println!("{} {}", self.key[i], self.value[i]);
             let _x = FileToVec::write_json_to_sled(self.key[i].to_string(), self.value[i].clone());
         }
     }
