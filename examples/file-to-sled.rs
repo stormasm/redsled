@@ -23,7 +23,7 @@ impl<'a> FileToVec<'a> {
     }
 
     fn write_json_to_sled(key: String, data: String) -> Result<(), Error> {
-        let tree = Db::open("my_db").unwrap();
+        let tree = Db::open("sledb_hn").unwrap();
         let _x = tree.insert(key, data.as_str().as_bytes());
         tree.flush().unwrap();
         Ok(())
