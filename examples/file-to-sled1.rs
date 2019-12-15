@@ -11,6 +11,8 @@ use sled::{Db, IVec};
 use std::convert::TryInto;
 use std::io::{BufRead, Error};
 
+use serde_json::Value;
+
 #[derive(Debug)]
 struct FileToVec<'a> {
     key: &'a mut Vec<u32>,
@@ -22,11 +24,17 @@ impl<'a> FileToVec<'a> {
         (num) & 1 == 0
     }
 
-    fn write_json_to_sled(key: String, value: String) -> Result<(), Error> {
+    fn write_json_to_sled(key: String, data: String) -> Result<(), Error> {
         let tree = Db::open("my_db").unwrap();
 
+        //let v: Value = serde_json::from_str(&data)?;
+
         let expected = r#"{"One":1,"Two":2}"#;
-        tree.insert(key, expected).unwrap();
+
+        // let raw_name = event_name.as_str().as_bytes();
+
+        tree.insert(key, data.as_str().as_bytes());
+        //tree.insert(key, value.to_string()).unwrap();
         /*
                 tree.insert(b"rick", vec![1, 2, 3]).unwrap();
                 assert_eq!(tree.get(b"rick"), Ok(Some(IVec::from(vec![1, 2, 3]))));
