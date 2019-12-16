@@ -11,3 +11,4 @@ sledb_hn
 **/*.rs.bk
 # **/lines.txt
 # **/lines-json.txt
+linesmin-sled.txt
