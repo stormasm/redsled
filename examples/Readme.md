@@ -8,7 +8,7 @@ There are 3 types of files created by [redis-to-file](./redis-to-file.rs).  Thes
 #### Summary
 
 * In summary I have the data coming out of the Hn API and writing
-the json to redis.
+the json to redis.  
 * Then I read the data out of redis and write it to a file and sled...  
 
 There is a
@@ -22,9 +22,9 @@ This started out
 
 ##### redis-to-file.rs
 
-Pulls all of the ids from a Redis Hashmap
-sorts them
-Goes back to Redis and gets the values of the associated keys which is json
+Pulls all of the ids from a Redis Hashmap  
+sorts them  
+Goes back to Redis and gets the values of the associated keys which is json  
 and writes the 3 different types of files noted above.
 
 ##### top_n_items_redis.rs
