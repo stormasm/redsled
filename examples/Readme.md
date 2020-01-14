@@ -1,4 +1,10 @@
 
+There are 3 types of files created by (./redis-to-file.rs)[redis-to-file.rs].  These files get created by slightly modifying the code.
+
+ * json files
+ * txt files with json data on each line
+ * txt files with the hackernews id and json on separate lines
+
 Eventually the plan is to do sled as well...
 
 Don't mess with the Redis data for now...
