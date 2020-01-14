@@ -1,4 +1,8 @@
 
+Check out this
+[Readme.md](./examples/Readme.md)
+for more details.
+
 This assumes that the data already exists in Redis
 and redsled is all about moving the data out of Redis
 and / or using Redis for further processing.
