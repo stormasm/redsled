@@ -1,6 +1,6 @@
 
 Check out this
-[Readme.md](./examples/Readme.md)
+[Readme](./examples/Readme.md)
 for more details.
 
 This assumes that the data already exists in Redis
