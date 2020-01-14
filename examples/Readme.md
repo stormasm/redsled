@@ -29,8 +29,8 @@ and writes the 3 different types of files noted above.
 
 ##### top_n_items_redis.rs
 
-Figure out one of three start ids based on a pseudo switch
-See the code comments for more details
-Generate the ids based on that starting id
-Go out to Hackernews and grab the Json for the associated id
-Only write out to Redis the Json you get if its a story.
+Figure out one of three start ids based on a pseudo switch  
+See the code comments for more details  
+Generate the ids based on that starting id  
+Go out to Hackernews and grab the Json for the associated id  
+Only write out to Redis the Json you get if its a story.  
