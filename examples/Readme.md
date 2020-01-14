@@ -30,6 +30,14 @@ These files get created by slightly modifying the code.
  * txt files with json data on each line
  * txt files with the hackernews id and json on separate lines
 
+The **text file** with json data on each line can be huge and streamed out over time and then processed.
+
+Eventually the plan is to have a text file for each individual year.
+
+The **json files** are good for viewing in a browser a subset of the much
+bigger text file above.  Simply break off a section off the big text
+file and create a much smaller json file.
+
 ##### file-to-redis.rs
 
 This started out
