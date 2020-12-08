@@ -1,4 +1,6 @@
 
+[rediset-to-file](https://github.com/stormasm/redsled/blob/master/examples/rediset-to-file.rs) is used by the repo [hackernews-favorites](https://github.com/stormasm/hackernews-favorites)
+
 [sled-to-file.rs](https://github.com/stormasm/redsled/blob/master/examples/sled-to-file.rs) is a great starting example of lifetimes.
 
 Check out this
